@@ -1,0 +1,130 @@
+package com.orit.app.whatsapp;
+
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+//import com.firebase.ui.database.FirebaseRecyclerAdapter;
+//import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class SearchUserActivity extends AppCompatActivity {
+
+    private RecyclerView searchRecylcerView;
+    private Toolbar toolbar;
+    private List<User> userList = new ArrayList<>();
+
+    DatabaseReference databaseReference;
+    User user = new User();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_user);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        searchRecylcerView= (RecyclerView)findViewById(R.id.search_recyclerView);
+        toolbar = (Toolbar)findViewById(R.id.search_toolbar);
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Find Friends");
+        searchRecylcerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+/*
+
+    FirebaseRecyclerOptions<User>    recyclerOptions = new FirebaseRecyclerOptions.Builder<User>()
+            .setQuery(databaseReference,User.class)
+            .build();
+
+
+        FirebaseRecyclerAdapter<User,SearchViewHolder> fireAdapter = new FirebaseRecyclerAdapter<User, SearchViewHolder>(recyclerOptions) {
+
+            @Override
+            protected void onBindViewHolder(@NonNull SearchViewHolder holder, final int position, @NonNull User model) {
+                holder.username.setText(model.getUser());
+                holder.status.setText(model.getStatus());
+                Glide.with(SearchUserActivity.this)
+                .load(user.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .into(holder.imgview);
+                // placeholder
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        String getId = getRef(position).getKey();
+
+                        Intent profileIntent = new Intent(SearchUserActivity.this,ProfileActivity.class);
+                        profileIntent.putExtra("userId",getId);
+
+                        startActivity(profileIntent);
+                    }
+                });
+
+            }
+
+            @Override
+            public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_cardview,parent,false);
+
+                SearchViewHolder searchViewHolder = new SearchViewHolder(view);
+
+                return  searchViewHolder;
+            }
+
+        };
+
+        searchRecylcerView.setAdapter(fireAdapter);
+        fireAdapter.startListening();
+
+        */
+    }
+    public class SearchViewHolder extends RecyclerView.ViewHolder
+    {
+        CircleImageView imgview;
+        TextView username;
+        TextView status ;
+
+        public SearchViewHolder(View itemView) {
+            super(itemView);
+
+            imgview = itemView.findViewById(R.id.card_profile_pic);
+            username = itemView.findViewById(R.id.card_user);
+            status   = itemView.findViewById(R.id.card_preview);
+
+
+        }
+    }
+
+}

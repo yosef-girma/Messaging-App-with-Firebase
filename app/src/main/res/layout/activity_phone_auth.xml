@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.orit.app.whatsapp.PhoneAuthActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="84dp"
+        android:gravity="center"
+        android:text="Sign in with your phone"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHighlight="@color/cardview_shadow_start_color"
+        android:textSize="20sp" />
+
+    <EditText
+
+        android:id="@+id/phone_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="109dp"
+        android:drawableLeft="@drawable/smartphone"
+        android:gravity="center"
+        android:hint="enter your phone number"
+        android:inputType="phone"
+        android:padding="5dp"
+        android:paddingBottom="5dp"
+        android:textAlignment="center" />
+
+
+    <Button
+
+        android:id="@+id/send_code_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/phone_no"
+        android:layout_marginLeft="109dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="97dp"
+        android:gravity="center"
+        android:text="@string/send_code" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:text="Term of Services" />
+</RelativeLayout>

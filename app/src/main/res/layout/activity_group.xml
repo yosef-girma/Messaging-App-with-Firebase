@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.orit.app.whatsapp.GroupActivity">
+
+
+    <android.support.v7.widget.Toolbar
+         android:id="@+id/group_chat_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        />
+    <ScrollView
+        android:id="@+id/grpScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/group_chat_toolbar"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/displayChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:padding="10sp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="2dp"
+
+                android:layout_marginLeft="2dp" />
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true">
+
+
+        <EditText
+            android:id="@+id/chatMessage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:drawablePadding="10dp"
+            android:background="@color/cardview_shadow_end_color"
+            android:drawableRight="@drawable/attach_send"
+            android:hint="please writer your message"
+            android:textAlignment="center"
+
+
+
+            />
+
+
+    </LinearLayout>
+</RelativeLayout>
