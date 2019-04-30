@@ -74,9 +74,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
      currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
      rootReference = FirebaseDatabase.getInstance().getReference();
-     profileImageView      = (CircleImageView)findViewById(R.id.profile_picture);
-     skipNow              = (CircleImageView)findViewById(R.id.skip_now);
-     userNameEditText      =  (EditText)findViewById(R.id.user_name);
+     profileImageView    = (CircleImageView)findViewById(R.id.profile_picture);
+     skipNow             = (CircleImageView)findViewById(R.id.skip_now);
+     userNameEditText    =  (EditText)findViewById(R.id.user_name);
      profileStatusEditText =  (EditText)findViewById(R.id.profile_status);
      updateProfileBtn      =  (Button) findViewById(R.id.update_profile);
      progressDialog =new ProgressDialog(SettingActivity.this);

@@ -43,24 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth.AuthStateListener authStateListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-       FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-
         setUpAuthStateListener();
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-
-
-
-
         mauth = FirebaseAuth.getInstance();
-
-        currentUser = mauth.getCurrentUser();
-        rotRef = FirebaseDatabase.getInstance().getReference();
+                 currentUser = mauth.getCurrentUser();
+        db = FirebaseDatabase.getInstance();
+        rotRef = db.getReference();
 
         setSupportActionBar(toolbar);
 
@@ -120,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
     protected  void onStart()
     {
         super.onStart();
+
         FirebaseAuth.getInstance().addAuthStateListener(authStateListener);
 
     if (currentUser == null)

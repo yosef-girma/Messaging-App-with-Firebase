@@ -13,6 +13,7 @@ import com.orit.app.whatsapp.ChatActivity;
 import com.orit.app.whatsapp.R;
 import com.orit.app.whatsapp.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -23,8 +24,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
 
     public Context context;
-    public List<User> users;
-    public ChatAdapter(Context context,List<User> users)
+    public ArrayList<User> users ;
+    public ChatAdapter(Context context,ArrayList<User> users)
     {
 
         this.context = context;

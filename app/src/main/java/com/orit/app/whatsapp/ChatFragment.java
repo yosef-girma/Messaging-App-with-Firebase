@@ -19,6 +19,10 @@ import com.bumptech.glide.Glide;
 //import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.orit.app.whatsapp.Adapter.ChatAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -26,7 +30,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatFragment extends Fragment {
 
     DatabaseReference databaseReference;
-
+    ChatAdapter chatAdapter;
+    ArrayList<User> users;
     RecyclerView chatRecyclerView;
     public ChatFragment()
     {
@@ -37,31 +42,17 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v =inflater.inflate(R.layout.fragment_chat, container, false);
-
-
+       View v =inflater.inflate(R.layout.fragment_chat, container, false);
+       users = new ArrayList<User>();
+       chatAdapter =new ChatAdapter(getContext(),users);
        databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
        chatRecyclerView = (RecyclerView)v.findViewById(R.id.chatRecyclerView);
        chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
        chatRecyclerView.setHasFixedSize(true);
+       chatRecyclerView.setAdapter(chatAdapter);
+
 
        return v;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
-        CircleImageView imgview;
-        TextView username;
-        TextView status ;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            imgview = itemView.findViewById(R.id.card_profile_pic);
-            username = itemView.findViewById(R.id.card_user);
-            status   = itemView.findViewById(R.id.card_preview);
-
-
-        }
-    }
 }

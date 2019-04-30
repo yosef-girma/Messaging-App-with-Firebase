@@ -3,6 +3,8 @@ package com.orit.app.whatsapp;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,8 +23,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orit.app.whatsapp.Adapter.ChatAdapter;
+import com.orit.app.whatsapp.Adapter.GroupAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,6 +43,9 @@ public class GroupActivity extends AppCompatActivity {
     private DatabaseReference userReference,groupNameReference,messageKeyReference;
     private String groupName,currentUserName,currentUId;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private RecyclerView groupChatRecyclerView;
+    private GroupAdapter groupChatAdapter;
+    private ArrayList<Chat> chatList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +54,9 @@ public class GroupActivity extends AppCompatActivity {
 
     groupName = getIntent().getExtras().get("groupName").toString();
     grpToolbar =(Toolbar)findViewById(R.id.group_chat_toolbar);
-
     setSupportActionBar(grpToolbar);
-
     getSupportActionBar().setTitle(groupName);
+
 
 
     auth = FirebaseAuth.getInstance();
@@ -131,20 +138,27 @@ public class GroupActivity extends AppCompatActivity {
 
     private void displayMessages(DataSnapshot dataSnapshot) {
 
-
         Iterator iterator = dataSnapshot.getChildren().iterator();
-
         while (iterator.hasNext())
         {
             String chatDate    = ((DataSnapshot)iterator.next()).getValue().toString();
             String chatMessage = ((DataSnapshot)iterator.next()).getValue().toString();
             String chatName    = ((DataSnapshot)iterator.next()).getValue().toString();
             String chatTime    = ((DataSnapshot)iterator.next()).getValue().toString();
-
-           displayChat.append("Name "+ chatName+"\n Message  " +chatMessage + "\n Time " +chatDate+  "  "+chatTime);
+            Chat chat          = new Chat(chatName,chatMessage,chatDate,chatTime);
+            Log.i("Chat ","Display user"+chat.getUser());
+            chatList.add(chat);
 
         }
 
+
+        Log.i("Chat List Size","Size"+chatList.size());
+        groupChatAdapter = new GroupAdapter(getApplicationContext(),chatList);
+        groupChatRecyclerView = (RecyclerView)findViewById(R.id.group_chat_recyclerView);
+        groupChatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        groupChatRecyclerView.setHasFixedSize(true);
+
+        groupChatRecyclerView.setAdapter(groupChatAdapter);
         scrollView.fullScroll(ScrollView.FOCUS_DOWN);
 
     }
@@ -223,7 +237,6 @@ public class GroupActivity extends AppCompatActivity {
     public  void intializeField()
     {
         chatMessageInput =(EditText)findViewById(R.id.chatMessage);
-        displayChat =(TextView)findViewById(R.id.displayChat);
         scrollView  =(ScrollView)findViewById(R.id.grpScrollView);
 
 

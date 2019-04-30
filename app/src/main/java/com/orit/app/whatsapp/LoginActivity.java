@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         auth = FirebaseAuth.getInstance();
+      //  FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         rootRef = FirebaseDatabase.getInstance().getReference();
 
        // currentUser = auth.getCurrentUser();
