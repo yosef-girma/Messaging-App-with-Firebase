@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/group_chat_profile_pic"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/shortcut_user"/>
+    <LinearLayout
+        android:id="@+id/chat_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/group_chat_profile_pic"
+        android:layout_marginLeft="20dp"
+        android:background=""
+        >
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/group_chat_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14dp"
+
+                />
+
+            <TextView
+                android:id="@+id/group_chat_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180dp"
+                android:layout_marginTop="20dp"
+                android:lines="1"
+                android:text="date"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+        <TextView
+
+            android:id="@+id/group_chat_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:layout_toRightOf="@id/group_chat_profile_pic"
+            android:inputType="textMultiLine"
+            android:textSize="16dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Test right over herenot bad at alll no human kind do this vofr ok no thatbull sheet ok done abod sfor your do"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <TextView
+
+            android:id="@+id/group_chat_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/group_chat_message"
+            android:layout_alignRight="@+id/group_chat_message"
+            android:layout_below="@+id/group_chat_message"
+            android:text="time" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
