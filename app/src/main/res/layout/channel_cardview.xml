@@ -4,14 +4,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   
+
 
     >
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/card_profile_pic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/channel_pic"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -26,26 +26,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/card_user"
+            android:id="@+id/channel_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:paddingTop="5dp"
-            android:text="username"
+            android:text="myChannel"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/card_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:lines="2"
-            android:text="preview"
-            android:textSize="16dp" />
+
 
     </LinearLayout>
 

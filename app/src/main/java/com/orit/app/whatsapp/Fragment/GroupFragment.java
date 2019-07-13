@@ -1,8 +1,6 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +17,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.orit.app.whatsapp.Activity.GroupActivity;
+import com.orit.app.whatsapp.R;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,6 +41,8 @@ public class GroupFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         View v = inflater.inflate(R.layout.fragment_group, container, false);
 
         dbGroupReference = FirebaseDatabase.getInstance().getReference().child("Groups");

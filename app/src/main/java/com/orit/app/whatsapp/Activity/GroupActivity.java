@@ -1,6 +1,5 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Activity;
 
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.orit.app.whatsapp.Adapter.ChatAdapter;
 import com.orit.app.whatsapp.Adapter.GroupAdapter;
+import com.orit.app.whatsapp.Model.Chat;
+import com.orit.app.whatsapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,8 +83,7 @@ public class GroupActivity extends AppCompatActivity {
                         chatMessageInput.setText("");
                         scrollView.fullScroll(ScrollView.FOCUS_DOWN);
                     }
-                }
-                return false;
+                }return false;
             }
 
 
@@ -197,12 +195,8 @@ public class GroupActivity extends AppCompatActivity {
             messageUnit.put("time",currentTime);
 
             messageKeyReference.updateChildren(messageUnit);
-
             chatMessageInput.setText("");
-
         }
-
-
     }
 
     private void getUserInfo() {

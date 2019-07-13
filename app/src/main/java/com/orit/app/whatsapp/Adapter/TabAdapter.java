@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.orit.app.whatsapp.ChatFragment;
-import com.orit.app.whatsapp.ContactFragment;
-import com.orit.app.whatsapp.FavouriteFragment;
-import com.orit.app.whatsapp.GroupFragment;
+import com.orit.app.whatsapp.Fragment.ChatFragment;
+import com.orit.app.whatsapp.Fragment.ChannelFragment;
+import com.orit.app.whatsapp.Fragment.FavouriteFragment;
+import com.orit.app.whatsapp.Fragment.GroupFragment;
 
 /**
  * Created by Joseph on 4/1/2019.
@@ -31,12 +31,11 @@ public class TabAdapter extends FragmentPagerAdapter {
             case 1:
                 return new GroupFragment();
             case 2:
-                return new ContactFragment();
+                return new ChannelFragment();
             case 3:
                 return new FavouriteFragment();
             default:
                 return  null;
-
 
         }
 
@@ -57,9 +56,11 @@ public class TabAdapter extends FragmentPagerAdapter {
 
                 return "Chat";
             case 1:
+
                 return "Group";
             case 2:
-                return "Contact";
+
+                return "Channel";
             case 3:
                 return  "Favourite";
             default:

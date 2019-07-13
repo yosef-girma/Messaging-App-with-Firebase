@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.orit.app.whatsapp.Fragment.ChatFragment">
+    tools:context="com.orit.app.whatsapp.Fragment.ChannelFragment">
 
-    <android.support.v7.widget.RecyclerView
-    android:id="@+id/chatRecyclerView"
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/channleRecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:soundEffectsEnabled="true"
-    >
+    android:layout_height="wrap_content">
+
 
 </android.support.v7.widget.RecyclerView>
 

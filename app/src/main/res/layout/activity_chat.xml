@@ -6,9 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.orit.app.whatsapp.GroupActivity">
-
-
+    android:background="@drawable/catstile"
+    tools:context="com.orit.app.whatsapp.Activity.GroupActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/private_chat_toolbar"
         android:layout_width="match_parent"
@@ -16,35 +15,30 @@
         android:background="@color/colorPrimary"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         />
+
     <ScrollView
-        android:id="@+id/grpScrollView"
+        android:id="@+id/private_chatScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_below="@id/group_chat_toolbar"
+        android:layout_above="@id/private_chat_message_box"
         >
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/private_chat_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="69dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginRight="13dp"
+            android:padding="20dp">
 
-            <TextView
-                android:id="@+id/private_chat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:layout_marginStart="2dp"
-                android:layout_marginBottom="2dp"
-                android:layout_marginRight="2dp"
-
-                android:layout_marginLeft="2dp" />
-
-        </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
     </ScrollView>
     <LinearLayout
 
+        android:id="@+id/private_chat_message_box"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
@@ -53,11 +47,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true">
 
-
         <EditText
-            android:id="@+id/private_chat_essage"
+            android:id="@+id/private_chat_message"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
             android:drawablePadding="10dp"
@@ -66,10 +59,6 @@
             android:hint="please writer your message"
             android:textAlignment="center"
 
-
-
-            />
-
-
+         />
     </LinearLayout>
 </RelativeLayout>

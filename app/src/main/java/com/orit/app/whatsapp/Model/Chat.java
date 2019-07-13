@@ -1,4 +1,4 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Model;
 
 /**
  * Created by Joseph on 4/29/2019.

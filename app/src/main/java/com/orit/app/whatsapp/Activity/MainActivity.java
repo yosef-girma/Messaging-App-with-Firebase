@@ -1,22 +1,26 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Activity;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,17 +33,22 @@ import com.google.firebase.database.DatabaseReference;
 import  com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orit.app.whatsapp.Adapter.TabAdapter;
+import com.orit.app.whatsapp.R;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{
 
     private    FirebaseDatabase db;
     private    FirebaseUser currentUser;
-    private    DatabaseReference rotRef;
+    private    DatabaseReference rotRef,channelRef;
     private    TabAdapter tabAdapter;
     private    Toolbar toolbar;
     private    ViewPager viewPager;
     private    TabLayout tabLayout;
     private    FirebaseAuth mauth;
+    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
 
     FirebaseAuth.AuthStateListener authStateListener;
 
@@ -67,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
          tabLayout =(TabLayout)findViewById(R.id.tabLayout);
          tabLayout.setupWithViewPager(viewPager);
 
+         mDrawerLayout =(DrawerLayout) findViewById(R.id.drawerLayout);
+         navigationView =(NavigationView)findViewById(R.id.navigationView);
+
+         navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                mDrawerLayout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close);
+
+
+        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
     }
 
@@ -181,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
 
                 createNewGroup();
                 break;
+            case R.id.channel_menu_item:
+
+                createChannel();
+                break;
             case R.id.sign_out_menu_item:
                 mauth.signOut();
                 authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -214,6 +241,64 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createChannel() {
+    AlertDialog.Builder createChannelAlertDlg = new AlertDialog.Builder(MainActivity.this);
+
+    final EditText  channelName = new EditText(MainActivity.this);
+    channelName.setHint("Channel Name");
+    createChannelAlertDlg.setView(channelName);
+    createChannelAlertDlg.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+            if(! channelName.getText().toString().isEmpty())
+                storeChannel(channelName.getText().toString(),"");
+
+
+        }
+    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+
+            dialogInterface.dismiss();
+
+        }
+    });
+
+    AlertDialog channelDlg =createChannelAlertDlg.create();
+     channelDlg.show();
+
+
+    }
+
+    private void storeChannel(final String channelName,final String channelProfilePic) {
+
+
+        String channelKey = rotRef.child("Channel").push().getKey();
+
+
+
+        HashMap<String,Object> channelInfo = new HashMap();
+           channelInfo.put("name",channelName);
+           channelInfo.put("pic",channelProfilePic);
+
+           channelRef = rotRef.child("Channel").child(channelKey);
+
+           channelRef.updateChildren(channelInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+               @Override
+               public void onComplete(@NonNull Task<Void> task) {
+                   if (task.isSuccessful())
+                       Toast.makeText(MainActivity.this,channelName +" Channel Created",Toast.LENGTH_LONG).show();
+                   else
+                       Log.d(MainActivity.class.getSimpleName(),task.getException().toString());
+
+               }
+           });
+
+
+
     }
 
     public void setUpAuthStateListener()
@@ -298,4 +383,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+        String itemName =(String)item.getTitle();
+        Toast.makeText(getApplicationContext(),itemName+"clicked",Toast.LENGTH_LONG).show();
+
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        switch (item.getItemId())
+        {
+            case R.id.nav_notification:
+
+                break;
+
+            case R.id.nav_setting:
+                break;
+
+            case R.id.nav_share:
+
+                break;
+
+
+        }
+        return true;
+
+
+    }
+    @Override
+    public void onBackPressed()
+    {
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+           mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+    }
 }

@@ -1,11 +1,10 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Activity;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,15 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.orit.app.whatsapp.R;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -201,7 +196,8 @@ getUserInfo();
        String profileStatus = profileStatusEditText.getText().toString().trim();
 
    {
-       StorageReference  childSRef = userProfileStorageReference.child(currentUser + "."+getFileExtension(profileImageUri));
+       final StorageReference  childSRef = userProfileStorageReference.child(currentUser + "."+getFileExtension(profileImageUri));
+
        childSRef.putFile(profileImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
            @Override
            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -211,25 +207,35 @@ getUserInfo();
                {
                   //rootReference.child("users").child(currentUser).child("image").setValue(task.getResult().getDownloadUrl().toString());
 
-                   HashMap<String,Object>  profile = new HashMap<>();
-
-
-                   profile.put("uid", currentUser);
-                   profile.put("name",getUserName());
-                   profile.put("status",getProfileStatus());
-                   // get download uri
-                   profile.put("image",task.getResult().getUploadSessionUri().toString());
-                   rootReference.child("users").child(currentUser).setValue(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                   childSRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                        @Override
-                       public void onComplete(@NonNull Task<Void> task) {
-                           if (task.isSuccessful()) {
-                               Toast.makeText(SettingActivity.this,"Profile Updated Successfully",Toast.LENGTH_LONG).show();
-                               launchHome();}
-                           else
-                           {Log.e(SettingActivity.class.getSimpleName(),task.getException().toString());
-                           }
+                       public void onSuccess(Uri uri) {
+
+                           HashMap<String,Object>  profile = new HashMap<>();
+
+
+                           profile.put("uid", currentUser);
+                           profile.put("name",getUserName());
+                           profile.put("status",getProfileStatus());
+                           // get download uri
+                           profile.put("image",uri.toString());
+
+                           rootReference.child("users").child(currentUser).setValue(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                               @Override
+                               public void onComplete(@NonNull Task<Void> task) {
+                                   if (task.isSuccessful()) {
+                                       Toast.makeText(SettingActivity.this,"Profile Updated Successfully",Toast.LENGTH_LONG).show();
+                                       launchHome();}
+                                   else
+                                   {Log.e(SettingActivity.class.getSimpleName(),task.getException().toString());
+                                   }
+                               }
+                           });
+
                        }
                    });
+
+
 
                    Toast.makeText(SettingActivity.this,"here i am done",Toast.LENGTH_LONG).show();
 

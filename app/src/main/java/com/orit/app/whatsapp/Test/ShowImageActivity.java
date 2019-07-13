@@ -43,17 +43,10 @@ public class ShowImageActivity extends AppCompatActivity {
      recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-      uploadList = new ArrayList<>();
-
-
+     uploadList = new ArrayList<>();
      databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_UPLOADS);
-
-
      progressDialog = new ProgressDialog(this);
-
      progressDialog.setTitle("please wait");
-
-
      databaseReference.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(DataSnapshot dataSnapshot) {

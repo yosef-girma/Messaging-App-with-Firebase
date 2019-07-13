@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/group_chat_profile_pic"
         android:layout_marginLeft="20dp"
-        android:background=""
+
         >
 
         <LinearLayout

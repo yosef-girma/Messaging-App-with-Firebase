@@ -1,4 +1,4 @@
-package com.orit.app.whatsapp;
+package com.orit.app.whatsapp.Model;
 
 /**
  * Created by Joseph on 4/7/2019.
@@ -16,9 +16,13 @@ public class User {
     {
 
     }
-    public User(String image,String name,String status,String uid)
+    public User(String image,String user,String status,String uid)
     {
 
+        this.image = image;
+        this.user = user;
+        this.status = status;
+        this.uid = uid;
 
     }
     public String getUser() {
